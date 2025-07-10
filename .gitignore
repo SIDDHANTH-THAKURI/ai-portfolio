@@ -1,0 +1,9 @@
+# Environment variables
+.env
+
+# Python virtual environment
+venv/
+
+# Node modules
+/frontend/node_modules/
+/frontend/.next/
