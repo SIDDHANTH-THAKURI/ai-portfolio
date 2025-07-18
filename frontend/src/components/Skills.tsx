@@ -6,7 +6,8 @@ import { motion, useMotionTemplate, useMotionValue, useSpring } from 'framer-mot
 import * as d3 from 'd3-force';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPython, faReact, faNodeJs, faJs, faHtml5, faCss3Alt, faGitAlt, faDocker, faAws, faTypo3 } from '@fortawesome/free-brands-svg-icons';
-import { faDatabase, faRobot, faCogs, faCloud, faServer, faLock, faCode } from '@fortawesome/free-solid-svg-icons';
+import { faDatabase, faRobot, faCogs, faCloud, faServer, faLock, faCode, faTerminal, faBug, faVial, faWind } from '@fortawesome/free-solid-svg-icons';
+import { SiVercel, SiRender, SiPhp } from 'react-icons/si';
 
 const skills = [
   // Core & AI
@@ -33,6 +34,8 @@ const skillCategories = [
       { id: 'TypeScript', icon: 'typescript' },
       { id: 'JavaScript', icon: faJs },
       { id: 'C', icon: faCode },
+      { id: 'C#', icon: faCode }, // fallback to faCode for C#
+      { id: 'PHP', icon: SiPhp },
     ],
   },
   {
@@ -56,7 +59,6 @@ const skillCategories = [
       { id: 'FastAPI', icon: faServer },
       { id: 'HTML/CSS', icon: faHtml5 },
       { id: '.NET', icon: faCode },
-      { id: 'PHP', icon: faCode },
       { id: 'Unity', icon: faCogs },
     ],
   },
@@ -78,12 +80,18 @@ const skillCategories = [
       { id: 'CI/CD', icon: faCogs },
       { id: 'REST APIs', icon: faServer },
       { id: 'Cursor', icon: faCode },
+      { id: 'Vercel', icon: SiVercel },
+      { id: 'Render', icon: SiRender },
+      { id: 'VS Code', icon: faCode }, // fallback to faCode for VS Code
     ],
   },
   {
     name: 'Security & Other',
     skills: [
       { id: 'Security', icon: faLock },
+      { id: 'Debugging', icon: faBug },
+      { id: 'Testing', icon: faVial },
+      { id: 'Microsoft Suite', icon: faWind }, // placeholder for Microsoft Suite
     ],
   },
 ];
@@ -118,12 +126,16 @@ export const Skills = () => {
                     transition={{ type: 'spring', stiffness: 200, damping: 18, delay: i * 0.05 }}
                   >
                     <span className="absolute -top-4 -right-4 w-12 h-12 bg-[#00BFFF22] rounded-full blur-2xl opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
-                    {skill.icon === 'typescript' ? (
+                    {typeof skill.icon === 'string' && skill.icon === 'typescript' ? (
                       <span className="mb-3 flex items-center justify-center" style={{ height: 32 }}>
                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: 'block' }}>
                           <rect width="32" height="32" rx="6" fill="#3178C6" />
                           <path d="M19.5 23.5V21.9c0-.2.1-.3.3-.3.1 0 .2 0 .3.1.4.3.8.5 1.3.5.5 0 .8-.2.8-.5 0-.2-.1-.4-.6-.6l-.8-.3c-1.1-.4-1.6-1-1.6-2 0-1.2 1-2 2.4-2 .7 0 1.4.2 2 .6.1.1.2.2.2.3v1.5c0 .2-.1.3-.3.3-.1 0-.2 0-.3-.1-.3-.2-.7-.4-1.2-.4-.5 0-.7.2-.7.4 0 .2.1.3.7.5l.7.3c1.2.4 1.7 1 1.7 2.1 0 1.3-1 2.1-2.5 2.1-.8 0-1.6-.2-2.2-.7-.1-.1-.2-.2-.2-.3zm-7.2-5.7c0-.2.1-.3.3-.3h2.2c.2 0 .3.1.3.3v7.2c0 .2-.1.3-.3.3h-2.2c-.2 0-.3-.1-.3-.3v-7.2z" fill="#fff"/>
                         </svg>
+                      </span>
+                    ) : typeof skill.icon === 'function' ? (
+                      <span className="mb-3 flex items-center justify-center text-3xl text-[#00BFFF] drop-shadow-lg group-hover:animate-spin-slow">
+                        {React.createElement(skill.icon)}
                       </span>
                     ) : (
                       typeof skill.icon !== 'string' && (

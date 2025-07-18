@@ -248,7 +248,7 @@ export const SidAIWidget = () => {
             <FontAwesomeIcon icon={faTimes} />
           </button>
           <div className="mb-3 mt-1">
-            <Image src="/me.png" alt="Sid AI Avatar" width={56} height={56} className="rounded-full border-2 border-[#00BFFF] shadow-lg" />
+            <Image src="/chatbot.png" alt="Sid AI Avatar" width={56} height={56} className="rounded-full border-2 border-[#00BFFF] shadow-lg" />
           </div>
           <div ref={chatRef} className="w-full flex-1 max-h-[340px] overflow-y-auto mb-3 px-1">
             {messages.length === 0 && (
