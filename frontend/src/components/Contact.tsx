@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'; // For email and location
-import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'; // For social brands
+import { faEnvelope, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'; 
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 
 import { faCode } from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'framer-motion';
@@ -39,7 +39,7 @@ export const Contact = () => {
           </p>
         </div>
 
-        <div className="flex justify-center space-x-6 pt-4"> {/* Added padding top */}
+        <div className="flex justify-center space-x-6 pt-4">
           <a
             href="https://github.com/SIDDHANTH-THAKURI"
             target="_blank"

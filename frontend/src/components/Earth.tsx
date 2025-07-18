@@ -37,7 +37,6 @@ export const Earth = () => {
       const moonDistance = 1.8;
       moonRef.current.position.x = Math.cos(moonOrbitAngle) * moonDistance;
       moonRef.current.position.z = -Math.sin(moonOrbitAngle) * moonDistance;
-      // Tidal locking: rotate the moon so the same side always faces the Earth
       moonRef.current.rotation.y = moonOrbitAngle;
     }
   });

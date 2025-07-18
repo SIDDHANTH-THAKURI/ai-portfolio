@@ -59,7 +59,6 @@ const RULES: { match: RegExp; response: () => RuleResponse }[] = [
 
 const LLM_LIMIT = 15;
 
-// Sid AI knowledge base
 const SID_KNOWLEDGE: { keywords: RegExp; answer: string }[] = [
   { keywords: /name|who are you|yourself/i, answer: "I'm Sid AI, your friendly portfolio assistant!" },
   { keywords: /siddhanth|owner|portfolio owner/i, answer: "Siddhanth Thakuri is a Software Engineer & AI Developer, a recent graduate with a Master’s in Computer Science (ML & Big Data) from University of Wollongong, Australia." },
@@ -107,7 +106,6 @@ export const SidAIWidget = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputDisabled, setInputDisabled] = useState(false);
 
-  // Load LLM usage from localStorage
   useEffect(() => {
     if (typeof window !== "undefined") {
       const count = parseInt(localStorage.getItem("sidai_llm_count") || "0", 10);
@@ -115,16 +113,14 @@ export const SidAIWidget = () => {
     }
   }, [open]);
 
-  // Scroll chat to bottom on new message
   useEffect(() => {
     if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
   }, [messages, open]);
 
-  // Send chat summary to Supabase when LLM limit is reached or chat is closed
   useEffect(() => {
     if (inputDisabled && messages.length > 0) {
       const userMessages = messages.filter(m => m.role === 'user').map(m => m.text);
-      const summary = userMessages.slice(0, 3).join(' | '); // Simple summary: first 3 user messages
+      const summary = userMessages.slice(0, 3).join(' | '); 
       fetch('/api/chat-summary', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -133,7 +129,6 @@ export const SidAIWidget = () => {
     }
   }, [inputDisabled]);
 
-  // Optionally, send summary when chat is closed
   useEffect(() => {
     if (!open && messages.length > 0) {
       const userMessages = messages.filter(m => m.role === 'user').map(m => m.text);
@@ -165,7 +160,6 @@ export const SidAIWidget = () => {
     setMessages((msgs) => [...msgs, { role: "user", text: userMsg }]);
     setInput("");
     if (inputRef.current) inputRef.current.focus();
-    // Log prompt to Supabase
     fetch('/api/chat-prompt', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -173,9 +167,8 @@ export const SidAIWidget = () => {
     });
     setLoading(true);
     try {
-      // Prepare session memory for LLM
       const recentHistory = messages.slice(-SESSION_MEMORY).map(m => ({ role: m.role, content: m.text }));
-      // Only introduce as Sid AI in the first message
+      
       const context = firstAI ? SID_CONTEXT : SID_CONTEXT.replace('Only introduce yourself as Sid AI in the first message. After that, reply as if you are Siddhanth, in first person, concise and natural.', 'Reply as if you are Siddhanth, in first person, concise and natural.');
       const llmPrompt = `${context}\n\nUser: ${userMsg}`;
       const resp = await fetch("/api/sidai-llm", {
@@ -213,9 +206,7 @@ export const SidAIWidget = () => {
     }
   };
 
-  // Helper to render URLs as clickable links/buttons
   function renderMessage(text: string) {
-    // Regex to find URLs
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const parts = text.split(urlRegex);
     return parts.map((part, i) => {
@@ -234,7 +225,7 @@ export const SidAIWidget = () => {
 
   return (
     <div className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end">
-      {/* Floating Button */}
+      
       {!open && (
         <button
           className="relative flex items-center gap-2 bg-gradient-to-tr from-[#00BFFF] to-[#7F7FD5] text-white px-7 py-4 rounded-full shadow-2xl font-bold text-lg hover:scale-110 transition-transform duration-200 glass-ai-btn backdrop-blur-md animate-sidai-pulse"
@@ -247,7 +238,6 @@ export const SidAIWidget = () => {
           <span className="hidden sm:inline z-10">Sid AI</span>
         </button>
       )}
-      {/* Expanded Chat Bubble */}
       {open && (
         <div className="glass-ai-card w-[420px] max-w-[98vw] p-6 rounded-2xl shadow-2xl flex flex-col items-center animate-fadein min-h-[480px]">
           <button

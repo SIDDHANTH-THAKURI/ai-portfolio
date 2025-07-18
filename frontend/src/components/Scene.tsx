@@ -8,7 +8,7 @@ import { Planet } from './Planet';
 import { Saturn } from './Saturn';
 import { Earth } from './Earth';
 import { MilkyWay } from './MilkyWay';
-import { AsteroidBelt } from './AsteroidBelt'; // <-- Import the new component
+import { AsteroidBelt } from './AsteroidBelt';
 
 const Sun = () => {
   const sunRef = useRef<THREE.Mesh>(null!);
@@ -47,7 +47,7 @@ export const Scene = ({ onJupiterClick }: { onJupiterClick?: () => void }) => {
       <Planet textureUrl="/venus.jpg" size={0.8} distance={8} speed={0.35} />
       <Earth />
       <Planet textureUrl="/mars.jpg" size={0.7} distance={18} speed={0.2} />
-      <AsteroidBelt /> {/* <-- Add the asteroid belt here */}
+      <AsteroidBelt />
       <Planet textureUrl="/jupiter.jpg" size={2.2} distance={26} speed={0.15} onClick={onJupiterClick} />
       <Saturn />
 

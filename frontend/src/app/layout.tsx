@@ -27,11 +27,9 @@ export default function RootLayout({
 }>) {
   const [showSidAI, setShowSidAI] = useState(false);
   useEffect(() => {
-    // Delay SidAIWidget until after hydration/loading
-    const timer = setTimeout(() => setShowSidAI(true), 1200); // match loader min time
+    const timer = setTimeout(() => setShowSidAI(true), 1200); 
     return () => clearTimeout(timer);
   }, []);
-  // Analytics: log page view on first load
   useEffect(() => {
     if (typeof window !== 'undefined') {
       fetch('/api/analytics', {
@@ -41,7 +39,7 @@ export default function RootLayout({
           path: window.location.pathname,
           referrer: document.referrer,
           user_agent: navigator.userAgent,
-          country: '', // You can add geo lookup if desired
+          country: '',
           session_id: getSessionId(),
         }),
       });

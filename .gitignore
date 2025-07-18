@@ -10,6 +10,7 @@ out/
 
 # Local env files
 .env
+.env.local
 .env.*
 frontend/.env
 frontend/.env.*

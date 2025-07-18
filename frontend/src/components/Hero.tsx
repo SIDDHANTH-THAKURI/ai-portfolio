@@ -19,7 +19,6 @@ export const Hero = () => {
   const [analyticsData, setAnalyticsData] = useState<any>(null);
   const [analyticsLoading, setAnalyticsLoading] = useState(false);
 
-  // Close dropdown on outside click
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -68,7 +67,6 @@ export const Hero = () => {
   const handleJupiterClick = async () => {
     setAnalyticsOpen(true);
     setAnalyticsLoading(true);
-    // Fetch summary counts and recent data
     const [analytics, feedback, chatPrompts, linkClicks] = await Promise.all([
       supabase.from('analytics').select('*'),
       supabase.from('feedback').select('*'),
@@ -100,14 +98,13 @@ export const Hero = () => {
 
   return (
     <section id="hero" className="relative w-full h-screen mx-auto">
-      {/* Showcase Background Toggle */}
+      
       <button
         className="absolute top-8 left-8 z-20 bg-[#23243a] bg-opacity-80 text-white px-4 py-2 rounded-full shadow hover:bg-[#00BFFF] transition-colors duration-300 text-sm font-semibold pointer-events-auto"
         onClick={() => setShowcase((v) => !v)}
       >
         {showcase ? 'Show Info' : 'Showcase Background'}
       </button>
-      {/* Dropdown Menu (top right) */}
       <div className="absolute top-8 right-12 z-30 pointer-events-auto" ref={dropdownRef}>
         <button
           onClick={() => setDropdownOpen((v) => !v)}
@@ -150,7 +147,6 @@ export const Hero = () => {
           </div>
         )}
       </div>
-      {/* Feedback Modal */}
       {feedbackOpen && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40">
           <div className="bg-[#18182F] rounded-2xl shadow-2xl p-8 w-[95vw] max-w-md relative animate-fadein">
@@ -199,11 +195,9 @@ export const Hero = () => {
           </div>
         </div>
       )}
-      {/* 3D Background */}
       <div className="absolute inset-0 z-0 cursor-grab active:cursor-grabbing">
         <Scene onJupiterClick={handleJupiterClick} />
       </div>
-      {/* Analytics Modal */}
       {analyticsOpen && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70">
           <div className="bg-[#18182F] rounded-2xl shadow-2xl p-8 w-[98vw] max-w-3xl relative animate-fadein overflow-y-auto max-h-[90vh]">
@@ -219,7 +213,6 @@ export const Hero = () => {
               <div className="text-white text-center py-12">Loading...</div>
             ) : analyticsData ? (
               <>
-                {/* Animated Summary Cards */}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-8">
                   <div className="bg-[#23243a] rounded-xl p-6 flex flex-col items-center shadow-lg animate-analytics-pop">
                     <span className="text-4xl font-bold text-[#00BFFF] animate-analytics-counter" style={{ animationDelay: '0.1s' }}>{analyticsData.hits}</span>
@@ -233,7 +226,6 @@ export const Hero = () => {
                     <span className="text-4xl font-bold text-[#00BFFF] animate-analytics-counter" style={{ animationDelay: '0.3s' }}>{analyticsData.prompts}</span>
                     <span className="text-xs text-gray-300 mt-2 flex items-center gap-2"><svg className="w-5 h-5 text-[#00BFFF]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2h2m10-4h-4m0 0V4m0 0v4" /></svg>Chat Prompts</span>
                   </div>
-                  {/* Donut/Bar Chart for Link Clicks */}
                   <div className="col-span-2 md:col-span-3 flex flex-col items-center justify-center">
                     <h3 className="text-lg font-semibold mb-2 text-[#00BFFF]">Link Clicks</h3>
                     <div className="flex gap-8 items-end justify-center mt-2">
@@ -285,7 +277,6 @@ export const Hero = () => {
           </div>
         </div>
       )}
-      {/* Main Content (conditionally hidden) */}
       <div
         className={`relative z-10 h-full flex flex-col justify-center items-center text-center px-4 pointer-events-none transition-opacity duration-500 ${showcase ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
       >
@@ -306,15 +297,13 @@ export const Hero = () => {
           Software Engineer & AI Developer
         </motion.h2>
       </div>
-      {/* Scroll Down Cue (conditionally hidden) */}
       {!showcase && (
         <div className="absolute xs:bottom-10 bottom-32 w-full flex flex-col items-center justify-center">
           <a href="#about" className="flex flex-col items-center group cursor-pointer">
-            {/* Animated Down Arrow SVG */}
+            
             <svg className="w-8 h-8 text-gray-300 animate-bounce group-hover:text-[#00BFFF] transition-colors duration-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
-            {/* Scroll Down Text */}
             <span className="mt-2 text-gray-300 text-sm font-poppins opacity-80 group-hover:text-[#00BFFF] group-hover:opacity-100 transition-all duration-300 animate-fadein">Scroll Down</span>
           </a>
         </div>

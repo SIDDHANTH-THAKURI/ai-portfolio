@@ -6,7 +6,6 @@ import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import { useTexture, Sphere, Ring } from '@react-three/drei';
 
-// Define the props our component will accept
 type PlanetProps = {
   textureUrl: string;
   size: number;

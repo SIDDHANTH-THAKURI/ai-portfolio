@@ -50,7 +50,6 @@ export const About = () => {
       viewport={{ once: true, amount: 0.2 }}
       variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } } }}
     >
-      {/* Animated Starry Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="w-full h-full animate-stars" />
       </div>

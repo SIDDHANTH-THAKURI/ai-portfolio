@@ -37,7 +37,7 @@ export const ExperienceEducation = () => (
   >
     <h2 className="text-center text-4xl font-bold font-poppins mb-16">Experience & Education</h2>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-      {/* Experience Timeline */}
+      
       <div>
         <h3 className="text-2xl font-semibold font-poppins mb-8 text-[#00BFFF]">Experience</h3>
         <div className="relative">
@@ -74,7 +74,7 @@ export const ExperienceEducation = () => (
           </ul>
         </div>
       </div>
-      {/* Education Timeline */}
+      
       <div>
         <h3 className="text-2xl font-semibold font-poppins mb-8 text-[#00BFFF]">Education</h3>
         <div className="relative">

@@ -20,7 +20,7 @@ export const AsteroidBelt = () => {
       const radius = innerRadius + Math.random() * (outerRadius - innerRadius);
       const x = Math.cos(angle) * radius;
       const z = Math.sin(angle) * radius;
-      const y = (Math.random() - 0.5) * 0.5; // Give the belt some thickness
+      const y = (Math.random() - 0.5) * 0.5; 
 
       const scale = 0.3 + Math.random() * 0.4;
 
