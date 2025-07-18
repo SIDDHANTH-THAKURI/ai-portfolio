@@ -98,54 +98,57 @@ export const Hero = () => {
 
   return (
     <section id="hero" className="relative w-full h-screen mx-auto">
-      
-      <button
-        className="absolute top-8 left-8 z-20 bg-[#23243a] bg-opacity-80 text-white px-4 py-2 rounded-full shadow hover:bg-[#00BFFF] transition-colors duration-300 text-sm font-semibold pointer-events-auto"
-        onClick={() => setShowcase((v) => !v)}
-      >
-        {showcase ? 'Show Info' : 'Showcase Background'}
-      </button>
-      <div className="absolute top-8 right-12 z-30 pointer-events-auto" ref={dropdownRef}>
-        <button
-          onClick={() => setDropdownOpen((v) => !v)}
-          className="bg-gradient-to-r from-[#00BFFF] to-[#7F7FD5] text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:from-[#7F7FD5] hover:to-[#00BFFF] transition-colors duration-300 text-base flex items-center gap-2"
-        >
-          More
-          <svg className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
-        </button>
-        {dropdownOpen && (
-          <div className="absolute right-0 mt-2 w-56 bg-[#18182F] rounded-xl shadow-2xl py-2 flex flex-col animate-fadein border border-[#23243a]">
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-3 text-white hover:bg-[#23243a] rounded-t-xl transition-colors duration-200 text-left"
-              onClick={() => setDropdownOpen(false)}
-            >
-              View Resume
-            </a>
-            <a
-              href="/resume.pdf"
-              download
-              className="px-5 py-3 text-white hover:bg-[#23243a] transition-colors duration-200 text-left"
-              onClick={() => setDropdownOpen(false)}
-            >
-              Download Resume
-            </a>
-            <button
-              onClick={() => { setFeedbackOpen(true); setDropdownOpen(false); }}
-              className="px-5 py-3 text-white hover:bg-[#23243a] transition-colors duration-200 text-left"
-            >
-              Feedback
-            </button>
-            <button
-              onClick={handleContactScroll}
-              className="px-5 py-3 text-white hover:bg-[#23243a] rounded-b-xl transition-colors duration-200 text-left"
-            >
-              Contact
-            </button>
-          </div>
-        )}
+      <div className="absolute top-8 left-0 right-0 z-30 flex flex-row justify-between items-center w-full px-8 pointer-events-none">
+        <div className="pointer-events-auto">
+          <button
+            className="bg-[#23243a] bg-opacity-80 text-white px-4 py-2 rounded-full shadow hover:bg-[#00BFFF] transition-colors duration-300 text-sm font-semibold"
+            onClick={() => setShowcase((v) => !v)}
+          >
+            {showcase ? 'Show Info' : 'Background'}
+          </button>
+        </div>
+        <div className="pointer-events-auto" ref={dropdownRef}>
+          <button
+            onClick={() => setDropdownOpen((v) => !v)}
+            className="bg-gradient-to-r from-[#00BFFF] to-[#7F7FD5] text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:from-[#7F7FD5] hover:to-[#00BFFF] transition-colors duration-300 text-base flex items-center gap-2"
+          >
+            More
+            <svg className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+          </button>
+          {dropdownOpen && (
+            <div className="absolute right-0 mt-2 w-56 bg-[#18182F] rounded-xl shadow-2xl py-2 flex flex-col animate-fadein border border-[#23243a]">
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-3 text-white hover:bg-[#23243a] rounded-t-xl transition-colors duration-200 text-left"
+                onClick={() => setDropdownOpen(false)}
+              >
+                View Resume
+              </a>
+              <a
+                href="/resume.pdf"
+                download
+                className="px-5 py-3 text-white hover:bg-[#23243a] transition-colors duration-200 text-left"
+                onClick={() => setDropdownOpen(false)}
+              >
+                Download Resume
+              </a>
+              <button
+                onClick={() => { setFeedbackOpen(true); setDropdownOpen(false); }}
+                className="px-5 py-3 text-white hover:bg-[#23243a] transition-colors duration-200 text-left"
+              >
+                Feedback
+              </button>
+              <button
+                onClick={handleContactScroll}
+                className="px-5 py-3 text-white hover:bg-[#23243a] rounded-b-xl transition-colors duration-200 text-left"
+              >
+                Contact
+              </button>
+            </div>
+          )}
+        </div>
       </div>
       {feedbackOpen && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40">
@@ -306,7 +309,7 @@ export const Hero = () => {
             </svg>
             <span className="mt-2 text-gray-300 text-sm font-poppins opacity-80 group-hover:text-[#00BFFF] group-hover:opacity-100 transition-all duration-300 animate-fadein">Scroll Down</span>
           </a>
-        </div>
+      </div>
       )}
     </section>
   );
