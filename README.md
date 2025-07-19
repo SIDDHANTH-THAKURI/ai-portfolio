@@ -156,6 +156,7 @@ And the open-source community 💜
 ```
 #### ⭐ Like What You See?
 If you found this project helpful or inspiring, please consider leaving a ⭐ — it helps more than you think!
+
 ```bash
 git commit -m "⭐ Loved the AI Portfolio!"
 ```
