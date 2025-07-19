@@ -12,6 +12,7 @@ config.autoAddCss = false;
 import SidAIWidget from "@/components/SidAIWidget";
 import { useState, useEffect } from "react";
 import { getSessionId } from "@/utils/session";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const poppins = Poppins({
@@ -50,6 +51,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${poppins.variable} font-inter`}>
         {children}
         {showSidAI && <SidAIWidget />}
+        <SpeedInsights />
       </body>
     </html>
   );
