@@ -98,7 +98,7 @@ export const About = () => {
           width: 100%;
           height: 100%;
           background: 
-            url('/public/stars_milky_way.jpg') repeat,
+            url('/stars_milky_way.jpg') repeat,
             radial-gradient(ellipse at 20% 30%, #fff3 1px, transparent 40%),
             radial-gradient(ellipse at 80% 70%, #fff2 1.5px, transparent 50%);
           background-size: 1200px 800px, 1000px 600px, 800px 400px;
