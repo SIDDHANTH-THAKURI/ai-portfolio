@@ -34,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                model: 'google/gemma-3n-e4b-it:free',
+                model: 'moonshotai/kimi-k2:free',
                 messages,
                 max_tokens: 256,
             }),

@@ -12,16 +12,16 @@ import { BeyondCode } from "@/components/BeyondCode";
 import { ExperienceEducation } from "@/components/ExperienceEducation";
 
 function useSmoothProgress(target: number, speed = 0.15) {
-  const [smooth, setSmooth] = useState(50); // Start at 50%
+  const [smooth, setSmooth] = useState(0); // Start at 0%
   useEffect(() => {
     let frame: number;
     function animate() {
       setSmooth(prev => {
-        const next = prev + (Math.max(target, 50) - prev) * speed;
-        if (Math.abs(next - Math.max(target, 50)) < 0.5) return Math.max(target, 50);
+        const next = prev + (target - prev) * speed;
+        if (Math.abs(next - target) < 0.5) return target;
         return next;
       });
-      if (Math.abs(smooth - Math.max(target, 50)) > 0.5) {
+      if (Math.abs(smooth - target) > 0.5) {
         frame = requestAnimationFrame(animate);
       }
     }
@@ -40,6 +40,17 @@ export default function Home() {
 
   useEffect(() => {
     minTime.current = Date.now();
+  }, []);
+
+  // Prevent accidental refresh/close at all times
+  useEffect(() => {
+    const handler = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      e.returnValue = "Are you sure you want to leave? Your progress may be lost.";
+      return e.returnValue;
+    };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
   }, []);
 
   useEffect(() => {

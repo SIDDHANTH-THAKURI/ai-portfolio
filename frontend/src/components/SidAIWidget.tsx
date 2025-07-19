@@ -57,7 +57,7 @@ const RULES: { match: RegExp; response: () => RuleResponse }[] = [
   },
 ];
 
-const LLM_LIMIT = 15;
+const LLM_LIMIT = 10;
 
 const SID_KNOWLEDGE: { keywords: RegExp; answer: string }[] = [
   { keywords: /name|who are you|yourself/i, answer: "I'm Sid AI, your friendly portfolio assistant!" },
@@ -76,9 +76,9 @@ You are Sid AI, a portfolio assistant for Siddhanth Thakuri.
 Here is up-to-date context about Siddhanth:
 - Recent graduate, Master’s in Computer Science (ML & Big Data), University of Wollongong, Australia (2023–2025)
 - B.Tech in Aeronautical Engineering, MLR Institute of Technology (JNTUH), India (2017–2021)
-- 2 years as Software Engineer at Accenture India (2021–2023), full stack developer (Python, .NET, C#, React.js, Node.js, FastAPI, SQL Server, REST APIs, HTML, CSS, JavaScript, Azure)
-- Built MedMatch: AI-driven drug interaction checker (React, Node.js, FastAPI, LLMs)
-- Experience with RAG, Agentic AI, MCP, LLM finetuning, Pinecone, Cursor, Claude, Ollama
+- 2 years as Software Engineer at Accenture India (2021–2023), full stack developer (Python, .NET, C#, React.js, Node.js, SQL Server, REST APIs, HTML, CSS, JavaScript, Azure)
+- Built MedMatch: AI-driven drug interaction checker (React, Node.js, FastAPI, LLMs, ML/DL)
+- Experience with RAG, Agentic AI, MCP, LLM finetuning, Cursor, Claude, Ollama
 - Fast learner, strong teamwork and communication, passionate, excellent time management, problem solving, creativity, work ethic, attention to detail, types fast
 - Contact: thakurisiddhanth1@gmail.com
 - LinkedIn: https://www.linkedin.com/in/siddhanththakuri/
@@ -95,6 +95,13 @@ Instructions:
 const SESSION_MEMORY = 8;
 
 export const SidAIWidget = () => {
+  // Reset LLM count on page load (refresh)
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("sidai_llm_count", "0");
+    }
+  }, []);
+
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<{ role: "user" | "ai"; text: string }[]>([]);
