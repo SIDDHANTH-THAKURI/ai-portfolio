@@ -101,7 +101,7 @@ react-icons + FontAwesome – Icon libraries
 ```
 #### 🤖 AI & Chatbot
 ```
-OpenRouter – LLM API (moonshotai/kimi-k2:free)
+OpenRouter – LLM API (mistralai/mistral-7b-instruct:free)
 
 Custom Prompt Engineering – Context, memory, and chat UX tuning
 ```

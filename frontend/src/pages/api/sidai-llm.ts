@@ -34,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                model: 'moonshotai/kimi-k2:free',
+                model: 'mistralai/mistral-7b-instruct:free',
                 messages,
                 max_tokens: 256,
             }),
