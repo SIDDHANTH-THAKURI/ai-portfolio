@@ -16,7 +16,7 @@ export const Earth = () => {
   const moonRef = useRef<THREE.Mesh>(null!);
   const [hovered, setHovered] = useState(false);
   const [interactionState, setInteractionState] = useState('initial');
-  const [earthTexture, moonTexture] = useTexture(['/earth.jpg', '/moon.jpg']);
+  const [earthTexture, moonTexture] = useTexture(['/earth.webp', '/moon.webp']);
 
   useEffect(() => {
     const timer = setTimeout(() => {

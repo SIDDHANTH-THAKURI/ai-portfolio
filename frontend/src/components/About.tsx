@@ -73,7 +73,7 @@ export const About = () => {
           <motion.div variants={itemVariants} className="md:col-span-2 flex justify-center items-end">
             <div className="relative flex flex-col items-center">
               <div className="bg-white rounded-xl shadow-2xl p-3 pb-6 flex flex-col items-center w-[290px] rotate-[-4deg] hover:rotate-1 transition-transform duration-300">
-                <Image src="/me.png" alt="Siddhanth Thakuri" width={240} height={240} className="rounded-lg object-cover" />
+                <Image src="/me.webp" alt="Siddhanth Thakuri" width={240} height={240} className="rounded-lg object-cover" />
                 <span className="mt-4 text-base font-semibold text-gray-700 font-poppins">Siddhanth Thakuri</span>
                 <span className="text-sm text-gray-400 font-poppins">“Always curious.”</span>
               </div>
@@ -98,7 +98,7 @@ export const About = () => {
           width: 100%;
           height: 100%;
           background: 
-            url('/stars_milky_way.jpg') repeat,
+            url('/stars_milky_way.webp') repeat,
             radial-gradient(ellipse at 20% 30%, #fff3 1px, transparent 40%),
             radial-gradient(ellipse at 80% 70%, #fff2 1.5px, transparent 50%);
           background-size: 1200px 800px, 1000px 600px, 800px 400px;

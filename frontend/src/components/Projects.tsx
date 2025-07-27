@@ -8,7 +8,7 @@ const projectData = [
   { 
     id: 'medmatch', 
     title: 'MedMatch - Secure Health Platform', 
-    image: '/medmatch.jpeg',
+    image: '/medmatch.webp',
     description: 'A full-stack clinical decision support system featuring an LLM-powered assistant to help doctors analyze drug interactions.', // <-- EDITED: More concise description
     tech: ['React', 'Node.js', 'FastAPI', 'MongoDB', 'LLM'], 
     liveUrl: 'https://medmatch-frontend.onrender.com/', 
@@ -17,7 +17,7 @@ const projectData = [
   { 
     id: 'travelmate', 
     title: 'TravelMate - Microservices App', 
-    image: '/travel.jpeg',
+    image: '/travel.webp',
     description: 'A distributed travel booking platform with a microservices architecture for user authentication, bookings, and payments.', 
     tech: ['React', 'Node.js', 'Express.js', 'MySQL', 'Docker'], 
     liveUrl: 'https://github.com/SIDDHANTH-THAKURI/travelMate_Website', 
@@ -26,7 +26,7 @@ const projectData = [
   { 
     id: 'escapevelocity', 
     title: 'Escape Velocity - 3D Platformer Game', 
-    image: '/game.png',
+    image: '/game.webp',
     description: 'A thrilling 3D platformer game inspired by Takeshi\'s Castle, built with Unity. Features multiple difficulty modes and cross-platform controls.', 
     tech: ['Unity', 'C#', '3D Modeling', 'Game Development'], 
     liveUrl: 'https://team-aero.itch.io/escape-velocity',

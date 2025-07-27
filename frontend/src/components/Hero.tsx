@@ -18,6 +18,7 @@ export const Hero = () => {
   const [analyticsOpen, setAnalyticsOpen] = useState(false);
   const [analyticsData, setAnalyticsData] = useState<any>(null);
   const [analyticsLoading, setAnalyticsLoading] = useState(false);
+  const [sceneVisible, setSceneVisible] = useState(false);
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -32,6 +33,12 @@ export const Hero = () => {
     }
     return () => document.removeEventListener('mousedown', handleClick);
   }, [dropdownOpen]);
+
+  useEffect(() => {
+    // Listen for loader completion (main content visible)
+    const timer = setTimeout(() => setSceneVisible(true), 1200); // match loader min duration
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleFeedbackSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -199,7 +206,7 @@ export const Hero = () => {
         </div>
       )}
       <div className="absolute inset-0 z-0 cursor-grab active:cursor-grabbing">
-        <Scene onJupiterClick={handleJupiterClick} />
+        {sceneVisible ? <Scene onJupiterClick={handleJupiterClick} /> : null}
       </div>
       {analyticsOpen && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70">

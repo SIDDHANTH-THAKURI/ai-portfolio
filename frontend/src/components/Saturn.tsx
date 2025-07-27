@@ -8,7 +8,7 @@ import { useTexture, Sphere, Ring } from '@react-three/drei';
 
 export const Saturn = () => {
   const groupRef = useRef<THREE.Group>(null!);
-  const [saturnTexture, ringTexture] = useTexture(['/saturn.jpg', '/saturn_ring.jpg']);
+  const [saturnTexture, ringTexture] = useTexture(['/saturn.webp', '/saturn_ring.webp']);
 
   useFrame(({ clock }) => {
     if (groupRef.current) {

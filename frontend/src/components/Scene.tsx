@@ -1,6 +1,5 @@
 // src/components/Scene.tsx
-"use client";
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { useFrame, Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
 import { OrbitControls, Stars, Sphere, Ring, useTexture } from '@react-three/drei';
@@ -12,7 +11,7 @@ import { AsteroidBelt } from './AsteroidBelt';
 
 const Sun = () => {
   const sunRef = useRef<THREE.Mesh>(null!);
-  const sunTexture = useTexture('/sun.jpg');
+  const sunTexture = useTexture('/sun.webp');
 
   useFrame((state, delta) => {
     sunRef.current.rotation.y += delta * 0.1;
@@ -43,12 +42,12 @@ export const Scene = ({ onJupiterClick }: { onJupiterClick?: () => void }) => {
       <Ring args={[35 - 0.05, 35 + 0.05, 128]} rotation-x={-Math.PI / 2}><meshBasicMaterial color="#333" side={THREE.DoubleSide} /></Ring>
 
       <Sun />
-      <Planet textureUrl="/mercury.jpg" size={0.5} distance={5} speed={0.5} />
-      <Planet textureUrl="/venus.jpg" size={0.8} distance={8} speed={0.35} />
+      <Planet textureUrl="/mercury.webp" size={0.5} distance={5} speed={0.5} />
+      <Planet textureUrl="/venus.webp" size={0.8} distance={8} speed={0.35} />
       <Earth />
-      <Planet textureUrl="/mars.jpg" size={0.7} distance={18} speed={0.2} />
+      <Planet textureUrl="/mars.webp" size={0.7} distance={18} speed={0.2} />
       <AsteroidBelt />
-      <Planet textureUrl="/jupiter.jpg" size={2.2} distance={26} speed={0.15} onClick={onJupiterClick} />
+      <Planet textureUrl="/jupiter.webp" size={2.2} distance={26} speed={0.15} onClick={onJupiterClick} />
       <Saturn />
 
       <OrbitControls enableZoom={true} enablePan={true} minDistance={5} maxDistance={150} />
