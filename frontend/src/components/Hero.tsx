@@ -1,333 +1,191 @@
-// src/components/Hero.tsx
 "use client";
 
-import { useState, useRef, useEffect } from 'react';
-import { Scene } from './Scene';
-import { motion } from 'framer-motion';
-import { getSessionId } from '@/utils/session';
-import { supabase } from '@/utils/supabaseClient';
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
-export const Hero = () => {
-  const [showcase, setShowcase] = useState(false);
-  const [feedbackOpen, setFeedbackOpen] = useState(false);
-  const [feedback, setFeedback] = useState({ name: '', email: '', message: '' });
-  const [feedbackSent, setFeedbackSent] = useState(false);
-  const [feedbackError, setFeedbackError] = useState('');
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const [analyticsOpen, setAnalyticsOpen] = useState(false);
-  const [analyticsData, setAnalyticsData] = useState<any>(null);
-  const [analyticsLoading, setAnalyticsLoading] = useState(false);
-  const [sceneVisible, setSceneVisible] = useState(false);
+const ease = [0.16, 1, 0.3, 1] as const;
 
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setDropdownOpen(false);
-      }
-    }
-    if (dropdownOpen) {
-      document.addEventListener('mousedown', handleClick);
-    } else {
-      document.removeEventListener('mousedown', handleClick);
-    }
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, [dropdownOpen]);
-
-  useEffect(() => {
-    // Listen for loader completion (main content visible)
-    const timer = setTimeout(() => setSceneVisible(true), 1200); // match loader min duration
-    return () => clearTimeout(timer);
-  }, []);
-
-  const handleFeedbackSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setFeedbackError('');
-    if (!feedback.message.trim()) {
-      setFeedbackError('Please enter your feedback.');
-      return;
-    }
-    try {
-      const resp = await fetch('/api/feedback', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...feedback, session_id: getSessionId() }),
-      });
-      if (!resp.ok) throw new Error('Failed to submit feedback');
-      setFeedbackSent(true);
-      setTimeout(() => {
-        setFeedbackOpen(false);
-        setFeedbackSent(false);
-        setFeedback({ name: '', email: '', message: '' });
-      }, 2000);
-    } catch (err) {
-      setFeedbackError('Failed to submit feedback. Please try again later.');
-    }
-  };
-
-  const handleContactScroll = () => {
-    setDropdownOpen(false);
-    const el = document.getElementById('contact');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const handleJupiterClick = async () => {
-    setAnalyticsOpen(true);
-    setAnalyticsLoading(true);
-    const [analytics, feedback, chatPrompts, linkClicks] = await Promise.all([
-      supabase.from('analytics').select('*'),
-      supabase.from('feedback').select('*'),
-      supabase.from('chat_prompts').select('*'),
-      supabase.from('link_clicks').select('*'),
-    ]);
-    setAnalyticsData({
-      hits: analytics.data?.length || 0,
-      feedback: feedback.data?.length || 0,
-      prompts: chatPrompts.data?.length || 0,
-      github: linkClicks.data?.filter((l: any) => l.link_type === 'github').length || 0,
-      linkedin: linkClicks.data?.filter((l: any) => l.link_type === 'linkedin').length || 0,
-      leetcode: linkClicks.data?.filter((l: any) => l.link_type === 'leetcode').length || 0,
-      recentPrompts: chatPrompts.data?.slice(-10).reverse() || [],
-      recentFeedback: feedback.data?.slice(-5).reverse() || [],
-    });
-    setAnalyticsLoading(false);
-  };
-
-  const nameVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.5 } },
-  };
-
-  const titleVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, delay: 0.7 } },
-  };
-
-  return (
-    <section id="hero" className="relative w-full h-screen mx-auto">
-      <div className="absolute top-8 left-0 right-0 z-30 flex flex-row justify-between items-center w-full px-8 pointer-events-none">
-        <div className="pointer-events-auto">
-          <button
-            className="bg-[#23243a] bg-opacity-80 text-white px-4 py-2 rounded-full shadow hover:bg-[#00BFFF] transition-colors duration-300 text-sm font-semibold"
-            onClick={() => setShowcase((v) => !v)}
-          >
-            {showcase ? 'Show Info' : 'Background'}
-          </button>
-        </div>
-        <div className="pointer-events-auto" ref={dropdownRef}>
-          <button
-            onClick={() => setDropdownOpen((v) => !v)}
-            className="bg-gradient-to-r from-[#00BFFF] to-[#7F7FD5] text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:from-[#7F7FD5] hover:to-[#00BFFF] transition-colors duration-300 text-base flex items-center gap-2"
-          >
-            More
-            <svg className={`w-4 h-4 transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
-          </button>
-          {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-56 bg-[#18182F] rounded-xl shadow-2xl py-2 flex flex-col animate-fadein border border-[#23243a]">
-              <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-5 py-3 text-white hover:bg-[#23243a] rounded-t-xl transition-colors duration-200 text-left"
-                onClick={() => setDropdownOpen(false)}
-              >
-                View Resume
-              </a>
-              <a
-                href="/resume.pdf"
-                download
-                className="px-5 py-3 text-white hover:bg-[#23243a] transition-colors duration-200 text-left"
-                onClick={() => setDropdownOpen(false)}
-              >
-                Download Resume
-              </a>
-              <button
-                onClick={() => { setFeedbackOpen(true); setDropdownOpen(false); }}
-                className="px-5 py-3 text-white hover:bg-[#23243a] transition-colors duration-200 text-left"
-              >
-                Feedback
-              </button>
-              <button
-                onClick={handleContactScroll}
-                className="px-5 py-3 text-white hover:bg-[#23243a] rounded-b-xl transition-colors duration-200 text-left"
-              >
-                Contact
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-      {feedbackOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40">
-          <div className="bg-[#18182F] rounded-2xl shadow-2xl p-8 w-[95vw] max-w-md relative animate-fadein">
-            <button
-              className="absolute top-3 right-3 text-gray-400 hover:text-[#00BFFF] text-xl"
-              onClick={() => setFeedbackOpen(false)}
-              aria-label="Close Feedback"
-            >
-              ×
-            </button>
-            {!feedbackSent ? (
-              <form onSubmit={handleFeedbackSubmit} className="flex flex-col gap-4">
-                <h3 className="text-2xl font-bold font-poppins text-white mb-2">Feedback</h3>
-                <input
-                  type="text"
-                  placeholder="Name (optional)"
-                  className="rounded-lg px-4 py-2 bg-[#23243a] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#00BFFF]"
-                  value={feedback.name}
-                  onChange={e => setFeedback(f => ({ ...f, name: e.target.value }))}
-                />
-                <input
-                  type="email"
-                  placeholder="Email (optional)"
-                  className="rounded-lg px-4 py-2 bg-[#23243a] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#00BFFF]"
-                  value={feedback.email}
-                  onChange={e => setFeedback(f => ({ ...f, email: e.target.value }))}
-                />
-                <textarea
-                  placeholder="Your feedback (required)"
-                  className="rounded-lg px-4 py-2 bg-[#23243a] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#00BFFF] min-h-[80px]"
-                  value={feedback.message}
-                  onChange={e => setFeedback(f => ({ ...f, message: e.target.value }))}
-                  required
-                />
-                {feedbackError && <div className="text-red-400 text-xs">{feedbackError}</div>}
-                <button
-                  type="submit"
-                  className="bg-[#00BFFF] text-white rounded-full px-4 py-2 font-bold shadow hover:bg-[#7F7FD5] transition-colors duration-200 text-base"
-                >
-                  Submit
-                </button>
-              </form>
-            ) : (
-              <div className="text-center text-white text-lg font-poppins py-8">Thank you for your feedback!</div>
-            )}
-          </div>
-        </div>
-      )}
-      <div className="absolute inset-0 z-0 cursor-grab active:cursor-grabbing">
-        {sceneVisible ? <Scene onJupiterClick={handleJupiterClick} /> : null}
-      </div>
-      {analyticsOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70">
-          <div className="bg-[#18182F] rounded-2xl shadow-2xl p-8 w-[98vw] max-w-3xl relative animate-fadein overflow-y-auto max-h-[90vh]">
-            <button
-              className="absolute top-3 right-3 text-gray-400 hover:text-[#00BFFF] text-xl"
-              onClick={() => setAnalyticsOpen(false)}
-              aria-label="Close Analytics"
-            >
-              ×
-            </button>
-            <h2 className="text-3xl font-bold font-poppins text-white mb-8">Portfolio Analytics</h2>
-            {analyticsLoading ? (
-              <div className="text-white text-center py-12">Loading...</div>
-            ) : analyticsData ? (
-              <>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-8">
-                  <div className="bg-[#23243a] rounded-xl p-6 flex flex-col items-center shadow-lg animate-analytics-pop">
-                    <span className="text-4xl font-bold text-[#00BFFF] animate-analytics-counter" style={{ animationDelay: '0.1s' }}>{analyticsData.hits}</span>
-                    <span className="text-xs text-gray-300 mt-2 flex items-center gap-2"><svg className="w-5 h-5 text-[#00BFFF]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0h6" /></svg>Page Hits</span>
-                  </div>
-                  <div className="bg-[#23243a] rounded-xl p-6 flex flex-col items-center shadow-lg animate-analytics-pop">
-                    <span className="text-4xl font-bold text-[#00BFFF] animate-analytics-counter" style={{ animationDelay: '0.2s' }}>{analyticsData.feedback}</span>
-                    <span className="text-xs text-gray-300 mt-2 flex items-center gap-2"><svg className="w-5 h-5 text-[#00BFFF]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4-7 8-9 8s-9-4-9-8a9 9 0 1118 0z" /></svg>Feedbacks</span>
-                  </div>
-                  <div className="bg-[#23243a] rounded-xl p-6 flex flex-col items-center shadow-lg animate-analytics-pop">
-                    <span className="text-4xl font-bold text-[#00BFFF] animate-analytics-counter" style={{ animationDelay: '0.3s' }}>{analyticsData.prompts}</span>
-                    <span className="text-xs text-gray-300 mt-2 flex items-center gap-2"><svg className="w-5 h-5 text-[#00BFFF]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2h2m10-4h-4m0 0V4m0 0v4" /></svg>Chat Prompts</span>
-                  </div>
-                  <div className="col-span-2 md:col-span-3 flex flex-col items-center justify-center">
-                    <h3 className="text-lg font-semibold mb-2 text-[#00BFFF]">Link Clicks</h3>
-                    <div className="flex gap-8 items-end justify-center mt-2">
-                      <div className="flex flex-col items-center">
-                        <div className="w-8 h-20 bg-[#00BFFF] rounded-t-lg animate-bar-grow" style={{ height: `${analyticsData.github * 10 + 20}px`, minHeight: 24 }}></div>
-                        <span className="text-xs text-gray-300 mt-1">GitHub</span>
-                        <span className="text-xs text-[#00BFFF] font-bold">{analyticsData.github}</span>
-                      </div>
-                      <div className="flex flex-col items-center">
-                        <div className="w-8 h-20 bg-[#7F7FD5] rounded-t-lg animate-bar-grow" style={{ height: `${analyticsData.linkedin * 10 + 20}px`, minHeight: 24 }}></div>
-                        <span className="text-xs text-gray-300 mt-1">LinkedIn</span>
-                        <span className="text-xs text-[#7F7FD5] font-bold">{analyticsData.linkedin}</span>
-                      </div>
-                      <div className="flex flex-col items-center">
-                        <div className="w-8 h-20 bg-[#FFA500] rounded-t-lg animate-bar-grow" style={{ height: `${analyticsData.leetcode * 10 + 20}px`, minHeight: 24 }}></div>
-                        <span className="text-xs text-gray-300 mt-1">LeetCode</span>
-                        <span className="text-xs text-[#FFA500] font-bold">{analyticsData.leetcode}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </>
-            ) : (
-              <div className="text-white text-center py-12">No analytics data found.</div>
-            )}
-            <style jsx global>{`
-              @keyframes analytics-pop {
-                0% { transform: scale(0.8); opacity: 0; }
-                100% { transform: scale(1); opacity: 1; }
-              }
-              .animate-analytics-pop {
-                animation: analytics-pop 0.7s cubic-bezier(0.4,0,0.2,1) both;
-              }
-              @keyframes analytics-counter {
-                0% { opacity: 0; transform: translateY(20px); }
-                100% { opacity: 1; transform: translateY(0); }
-              }
-              .animate-analytics-counter {
-                animation: analytics-counter 0.8s cubic-bezier(0.4,0,0.2,1) both;
-              }
-              @keyframes bar-grow {
-                0% { height: 0; }
-                100% { }
-              }
-              .animate-bar-grow {
-                animation: bar-grow 1.2s cubic-bezier(0.4,0,0.2,1) both;
-              }
-            `}</style>
-          </div>
-        </div>
-      )}
-      <div
-        className={`relative z-10 h-full flex flex-col justify-center items-center text-center px-4 pointer-events-none transition-opacity duration-500 ${showcase ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-      >
-        <motion.h1
-          variants={nameVariants}
-          initial="hidden"
-          animate="visible"
-          className="text-5xl md:text-7xl font-bold font-poppins text-white select-none"
-        >
-          Siddhanth Thakuri
-        </motion.h1>
-        <motion.h2
-          variants={titleVariants}
-          initial="hidden"
-          animate="visible"
-          className="text-2xl md:text-4xl text-gray-300 mt-2 font-normal select-none"
-        >
-          Software Engineer & AI Developer
-        </motion.h2>
-      </div>
-      {!showcase && (
-        <div className="absolute xs:bottom-10 bottom-32 w-full flex flex-col items-center justify-center">
-          <a href="#about" className="flex flex-col items-center group cursor-pointer">
-            
-            <svg className="w-8 h-8 text-gray-300 animate-bounce group-hover:text-[#00BFFF] transition-colors duration-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-            <span className="mt-2 text-gray-300 text-sm font-poppins opacity-80 group-hover:text-[#00BFFF] group-hover:opacity-100 transition-all duration-300 animate-fadein">Scroll Down</span>
-          </a>
-      </div>
-      )}
-    </section>
-  );
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.2 } },
+};
+const fade = {
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
 };
 
-<style jsx global>{`
-@keyframes fadein {
-  0% { opacity: 0; transform: translateY(10px); }
-  100% { opacity: 0.8; transform: translateY(0); }
+export function Hero() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const titleY = useTransform(scrollYProgress, [0, 1], [0, -90]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+
+  return (
+    <section
+      id="top"
+      ref={ref}
+      className="relative flex min-h-[100svh] items-center overflow-hidden px-6 pb-32 pt-40 md:px-12 md:pt-44"
+    >
+      <motion.div
+        variants={stagger}
+        initial="hidden"
+        animate="show"
+        style={{ y: titleY, opacity: titleOpacity }}
+        className="relative z-10 mx-auto w-full max-w-6xl"
+      >
+        {/* Coordinates strip — flight-deck instrument feel */}
+        <motion.div
+          variants={fade}
+          className="mb-10 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[11px] uppercase tracking-[0.28em] text-ink-soft"
+        >
+          <span className="flex items-center gap-2">
+            <span className="h-px w-8 bg-ink/40" />
+            33.86°S · 151.21°E
+          </span>
+          <span className="text-amber/80">·</span>
+          <span>Software Engineer</span>
+          <span className="text-amber/80">·</span>
+          <span>Sydney</span>
+        </motion.div>
+
+        {/* Name — italic Cormorant on cream, with a sun-warm gradient on the surname. */}
+        <motion.h1
+          variants={fade}
+          className="font-display font-light italic leading-[0.92] tracking-tight text-ink"
+          style={{ fontSize: "clamp(56px, 11vw, 138px)" }}
+        >
+          Siddhanth
+          <br />
+          <span className="relative inline-block">
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage:
+                  "linear-gradient(100deg, var(--amber) 0%, var(--ink) 70%)",
+              }}
+            >
+              Thakuri
+            </span>
+            {/* Hand-drawn underline that draws in. */}
+            <svg
+              className="pointer-events-none absolute -bottom-3 left-0 w-full"
+              height="14"
+              viewBox="0 0 600 14"
+              fill="none"
+              preserveAspectRatio="none"
+              aria-hidden
+            >
+              <motion.path
+                d="M2,9 C120,2 260,12 380,6 C460,2 540,9 598,4"
+                stroke="var(--amber)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                fill="none"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{ duration: 1.6, delay: 1.0, ease }}
+              />
+            </svg>
+          </span>
+        </motion.h1>
+
+        {/* Tagline */}
+        <motion.p
+          variants={fade}
+          className="mt-12 max-w-xl font-display italic text-ink"
+          style={{ fontSize: "clamp(20px, 2.4vw, 26px)" }}
+        >
+          I build things from problems I&apos;ve actually lived.
+        </motion.p>
+        <motion.p
+          variants={fade}
+          className="mt-3 max-w-xl font-body text-[15px] text-ink-soft"
+        >
+          Aeronautical engineer turned software engineer · Enterprise .NET at
+          Accenture · Now shipping AI products from Sydney.
+        </motion.p>
+
+        {/* CTAs */}
+        <motion.div variants={fade} className="mt-12 flex flex-wrap gap-4">
+          <a
+            href="#origin"
+            className="group relative inline-flex items-center gap-2 overflow-hidden bg-ink px-6 py-3 font-mono text-[12px] uppercase tracking-[0.18em] text-paper transition-colors duration-500 hover:text-paper"
+          >
+            <span
+              aria-hidden
+              className="absolute inset-0 -translate-x-full bg-amber transition-transform duration-500 ease-out group-hover:translate-x-0"
+            />
+            <span className="relative">Read the story</span>
+            <span aria-hidden className="relative transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </a>
+          <a
+            href="#work"
+            className="inline-flex items-center gap-2 border border-ink/30 bg-paper/40 px-6 py-3 font-mono text-[12px] uppercase tracking-[0.18em] text-ink backdrop-blur-sm transition-colors duration-300 hover:border-amber hover:text-amber"
+          >
+            View the work
+          </a>
+        </motion.div>
+
+        {/* Flight-data strip */}
+        <motion.dl
+          variants={fade}
+          className="mt-20 grid max-w-3xl grid-cols-3 gap-x-6 gap-y-4 border-t border-ink/15 pt-6 font-mono text-[11px] uppercase tracking-[0.18em] text-ink-soft md:gap-x-12"
+        >
+          <div>
+            <dt className="text-ink-soft/70">Heading</dt>
+            <dd className="mt-1 text-ink">Aero → Software</dd>
+          </div>
+          <div>
+            <dt className="text-ink-soft/70">Altitude</dt>
+            <dd className="mt-1 text-ink">6 ships · 2 live</dd>
+          </div>
+          <div>
+            <dt className="text-ink-soft/70">Status</dt>
+            <dd className="mt-1 flex items-center gap-2 text-amber">
+              <span className="relative inline-flex h-2 w-2">
+                <span className="absolute inset-0 animate-ping rounded-full bg-amber/60" />
+                <span className="relative h-2 w-2 rounded-full bg-amber" />
+              </span>
+              In flight
+            </dd>
+          </div>
+        </motion.dl>
+      </motion.div>
+
+      {/* Compass mark — subtle blueprint flourish, top-left */}
+      <motion.svg
+        initial={{ opacity: 0, rotate: -20 }}
+        animate={{ opacity: 0.55, rotate: 0 }}
+        transition={{ duration: 1.4, delay: 0.6, ease }}
+        className="pointer-events-none absolute right-6 top-28 hidden h-32 w-32 md:block md:right-12 md:top-32"
+        viewBox="0 0 120 120"
+        fill="none"
+        stroke="var(--blueprint)"
+        strokeWidth="1"
+        aria-hidden
+      >
+        <circle cx="60" cy="60" r="56" />
+        <circle cx="60" cy="60" r="40" />
+        <circle cx="60" cy="60" r="2" fill="var(--blueprint)" />
+        <path d="M60,4 L60,18 M60,102 L60,116 M4,60 L18,60 M102,60 L116,60" />
+        <path d="M22,22 L32,32 M88,22 L78,32 M22,98 L32,88 M88,98 L78,88" strokeDasharray="2 3" />
+        <text x="60" y="14" textAnchor="middle" fontSize="7" fill="var(--blueprint)" fontFamily="monospace">N</text>
+        <text x="60" y="112" textAnchor="middle" fontSize="7" fill="var(--blueprint)" fontFamily="monospace">S</text>
+      </motion.svg>
+
+      {/* Scroll cue */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 1.4 }}
+        className="absolute bottom-10 left-6 z-10 hidden items-center gap-3 font-mono text-[11px] uppercase tracking-[0.28em] text-ink-soft md:left-12 md:flex"
+      >
+        <span className="h-px w-10 bg-ink-soft/50" />
+        Begin descent
+      </motion.div>
+    </section>
+  );
 }
-.animate-fadein {
-  animation: fadein 1.5s ease-in 0.5s both;
-}
-`}</style>

@@ -1,170 +1,175 @@
-// src/components/Skills.tsx
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, useMotionTemplate, useMotionValue, useSpring } from 'framer-motion';
-import * as d3 from 'd3-force';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPython, faReact, faNodeJs, faJs, faHtml5, faCss3Alt, faGitAlt, faDocker, faAws, faTypo3 } from '@fortawesome/free-brands-svg-icons';
-import { faDatabase, faRobot, faCogs, faCloud, faServer, faLock, faCode, faTerminal, faBug, faVial, faWind } from '@fortawesome/free-solid-svg-icons';
-import { SiVercel, SiRender, SiPhp } from 'react-icons/si';
+import { motion } from "framer-motion";
 
-const skills = [
-  // Core & AI
-  { id: 'Python' }, { id: 'AI/ML' }, { id: 'LLMs' }, { id: 'Deep Learning' },
-  { id: 'PyTorch' }, { id: 'Scikit-learn' }, { id: 'Pandas' }, { id: 'TypeScript' },
-  
-  // Web Stack
-  { id: 'React' }, { id: 'Next.js' }, { id: 'Node.js' }, { id: 'Express.js' },
-  { id: 'FastAPI' }, { id: 'HTML/CSS' }, { id: 'JavaScript' },
-  
-  // Databases & DevOps
-  { id: 'MongoDB' }, { id: 'MySQL' }, { id: 'SQL Server' }, { id: 'Azure' },
-  { id: 'Docker' }, { id: 'Git/GitHub' }, { id: 'CI/CD' }, { id: 'REST APIs' },
-  
-  // Game Dev & Other
-  { id: 'Unity' }, { id: 'C#' }, { id: 'Security' }, { id: 'PHP' },
-].map(skill => ({ ...skill, x: 0, y: 0 })); 
+const ease = [0.16, 1, 0.3, 1] as const;
 
-const skillCategories = [
+const stats = [
+  { value: "280+", label: "LeetCode problems" },
+  { value: "120+", label: "Code reviews" },
+  { value: "18%", label: "Defect reduction" },
+  { value: "77.9", label: "WAM Distinction" },
+  { value: "6", label: "Shipped projects" },
+  { value: "2", label: "Live products" },
+];
+
+type Group = { label: string; accent: string; items: string[] };
+
+const groups: Group[] = [
   {
-    name: 'Programming Languages',
-    skills: [
-      { id: 'Python', icon: faPython },
-      { id: 'TypeScript', icon: 'typescript' },
-      { id: 'JavaScript', icon: faJs },
-      { id: 'C', icon: faCode },
-      { id: 'C#', icon: faCode }, // fallback to faCode for C#
-      { id: 'PHP', icon: SiPhp },
+    label: "Languages",
+    accent: "#d97706",   // amber
+    items: ["C#", "TypeScript", "Python", "JavaScript", "SQL"],
+  },
+  {
+    label: "Frameworks",
+    accent: "#2c4a6b",   // blueprint
+    items: ["ASP.NET Core", "React", "Next.js", "Node.js", "FastAPI"],
+  },
+  {
+    label: "AI / ML",
+    accent: "#2d8a7f",   // teal
+    items: [
+      "Anthropic API",
+      "OpenRouter",
+      "BERT",
+      "ChemBERTa",
+      "Transformers",
+      "Mistral",
+      "GPT-4",
+      "scikit-learn",
     ],
   },
   {
-    name: 'AI/ML & Data Science',
-    skills: [
-      { id: 'AI/ML', icon: faRobot },
-      { id: 'LLMs', icon: faRobot },
-      { id: 'Deep Learning', icon: faRobot },
-      { id: 'NLP', icon: faRobot },
-      { id: 'RAG', icon: faRobot },
-      { id: 'Computer Vision', icon: faRobot },
+    label: "Infrastructure",
+    accent: "#7a9b76",   // sage
+    items: [
+      "PostgreSQL",
+      "MongoDB",
+      "SQL Server",
+      "Docker",
+      "Azure",
+      "AWS",
+      "Vercel",
+      "Render",
+      "Twilio",
+      "Stripe",
     ],
   },
   {
-    name: 'Web & App Development',
-    skills: [
-      { id: 'React', icon: faReact },
-      { id: 'Next.js', icon: faReact },
-      { id: 'Node.js', icon: faNodeJs },
-      { id: 'Express.js', icon: faNodeJs },
-      { id: 'FastAPI', icon: faServer },
-      { id: 'HTML/CSS', icon: faHtml5 },
-      { id: '.NET', icon: faCode },
-      { id: 'Unity', icon: faCogs },
-    ],
-  },
-  {
-    name: 'Databases & Cloud',
-    skills: [
-      { id: 'Supabase', icon: faDatabase },
-      { id: 'MongoDB', icon: faDatabase },
-      { id: 'MySQL', icon: faDatabase },
-      { id: 'SQL Server', icon: faDatabase },
-      { id: 'Azure', icon: faCloud },
-    ],
-  },
-  {
-    name: 'DevOps & Tools',
-    skills: [
-      { id: 'Docker', icon: faDocker },
-      { id: 'Git/GitHub', icon: faGitAlt },
-      { id: 'CI/CD', icon: faCogs },
-      { id: 'REST APIs', icon: faServer },
-      { id: 'Cursor', icon: faCode },
-      { id: 'Vercel', icon: SiVercel },
-      { id: 'Render', icon: SiRender },
-      { id: 'VS Code', icon: faCode }, // fallback to faCode for VS Code
-    ],
-  },
-  {
-    name: 'Security & Other',
-    skills: [
-      { id: 'Security', icon: faLock },
-      { id: 'Debugging', icon: faBug },
-      { id: 'Testing', icon: faVial },
-      { id: 'Microsoft Suite', icon: faWind }, // placeholder for Microsoft Suite
-    ],
+    label: "Tools",
+    accent: "#5b5f6b",   // ink-soft
+    items: ["Git", "Jira", "Postman", "Figma"],
   },
 ];
 
-export const Skills = () => {
+export function Skills() {
   return (
-    <motion.section
-      id="skills"
-      className="py-24 overflow-hidden"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
-      variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } } }}
-    >
-      <div className="container mx-auto px-4">
-        <h2 className="text-center text-4xl font-bold font-poppins mb-16">
-          Technical Skills
-        </h2>
-        <div className="grid md:grid-cols-2 gap-12">
-          {skillCategories.map((cat) => (
-            <div key={cat.name}>
-              <h3 className="text-2xl font-semibold font-poppins mb-6 text-[#00BFFF]">{cat.name}</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
-                {cat.skills.map((skill, i) => (
-                  <motion.div
-                    key={skill.id}
-                    className="glass-skill-card flex flex-col items-center justify-center p-6 rounded-2xl shadow-lg border border-white/10 backdrop-blur-md transition-transform relative group"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    whileHover={{ scale: 1.08, boxShadow: '0 8px 32px #00BFFF33' }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ type: 'spring', stiffness: 200, damping: 18, delay: i * 0.05 }}
-                  >
-                    <span className="absolute -top-4 -right-4 w-12 h-12 bg-[#00BFFF22] rounded-full blur-2xl opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
-                    {typeof skill.icon === 'string' && skill.icon === 'typescript' ? (
-                      <span className="mb-3 flex items-center justify-center" style={{ height: 32 }}>
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ display: 'block' }}>
-                          <rect width="32" height="32" rx="6" fill="#3178C6" />
-                          <path d="M19.5 23.5V21.9c0-.2.1-.3.3-.3.1 0 .2 0 .3.1.4.3.8.5 1.3.5.5 0 .8-.2.8-.5 0-.2-.1-.4-.6-.6l-.8-.3c-1.1-.4-1.6-1-1.6-2 0-1.2 1-2 2.4-2 .7 0 1.4.2 2 .6.1.1.2.2.2.3v1.5c0 .2-.1.3-.3.3-.1 0-.2 0-.3-.1-.3-.2-.7-.4-1.2-.4-.5 0-.7.2-.7.4 0 .2.1.3.7.5l.7.3c1.2.4 1.7 1 1.7 2.1 0 1.3-1 2.1-2.5 2.1-.8 0-1.6-.2-2.2-.7-.1-.1-.2-.2-.2-.3zm-7.2-5.7c0-.2.1-.3.3-.3h2.2c.2 0 .3.1.3.3v7.2c0 .2-.1.3-.3.3h-2.2c-.2 0-.3-.1-.3-.3v-7.2z" fill="#fff"/>
-                        </svg>
-                      </span>
-                    ) : typeof skill.icon === 'function' ? (
-                      <span className="mb-3 flex items-center justify-center text-3xl text-[#00BFFF] drop-shadow-lg group-hover:animate-spin-slow">
-                        {React.createElement(skill.icon)}
-                      </span>
-                    ) : (
-                      typeof skill.icon !== 'string' && (
-                        <FontAwesomeIcon icon={skill.icon} className="text-3xl text-[#00BFFF] mb-3 drop-shadow-lg group-hover:animate-spin-slow" />
-                      )
-                    )}
-                    <span className="text-base font-medium text-white/90 text-center">{skill.id}</span>
-                  </motion.div>
-                ))}
+    <section id="skills" className="relative px-6 py-[140px] md:px-12">
+      <div className="mx-auto max-w-6xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease }}
+          className="mb-20 md:mb-28"
+        >
+          <p className="mb-4 font-mono text-[12px] uppercase tracking-[0.28em] text-amber">
+            The Story · 05 · By the Numbers
+          </p>
+          <h2
+            className="font-display font-light italic leading-[1] text-ink"
+            style={{ fontSize: "clamp(40px, 6.5vw, 82px)" }}
+          >
+            Counted, not claimed.
+          </h2>
+        </motion.div>
+
+        {/* Stats grid */}
+        <div className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-3 md:gap-x-12 md:gap-y-16">
+          {stats.map((s, i) => (
+            <motion.div
+              key={s.label}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, ease, delay: i * 0.05 }}
+              className="group"
+            >
+              <div
+                className="font-display font-light italic leading-none text-amber transition-opacity duration-300"
+                style={{ fontSize: "clamp(48px, 7vw, 88px)" }}
+              >
+                {s.value}
               </div>
-            </div>
+              <p className="mt-3 font-body text-[13px] uppercase tracking-wider text-ink-soft md:text-[14px]">
+                {s.label}
+              </p>
+            </motion.div>
           ))}
         </div>
+
+        {/* ── Interactive skill tag groups ─────────────────────────────── */}
+        <div className="mt-32">
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, ease }}
+            className="mb-14 font-mono text-[12px] uppercase tracking-[0.28em] text-amber"
+          >
+            The Toolkit
+          </motion.p>
+
+          <div className="space-y-14">
+            {groups.map((g, gi) => (
+              <motion.div
+                key={g.label}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.55, ease, delay: gi * 0.06 }}
+              >
+                {/* Category header with colour dot */}
+                <div className="mb-4 flex items-center gap-3">
+                  <span
+                    className="h-2 w-2 rounded-full"
+                    style={{ background: g.accent }}
+                    aria-hidden
+                  />
+                  <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-ink-soft/70">
+                    {g.label}
+                  </span>
+                </div>
+
+                {/* Tag cloud */}
+                <div className="flex flex-wrap gap-2.5">
+                  {g.items.map((item, ii) => (
+                    <motion.span
+                      key={item}
+                      initial={{ opacity: 0, scale: 0.88 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true, amount: 0.3 }}
+                      transition={{ duration: 0.35, ease, delay: gi * 0.06 + ii * 0.04 }}
+                      whileHover={{
+                        y: -3,
+                        boxShadow: `0 6px 20px -6px ${g.accent}55`,
+                        borderColor: g.accent,
+                        color: g.accent,
+                        transition: { duration: 0.18 },
+                      }}
+                      className="cursor-default rounded-full border border-ink/14 bg-paper px-4 py-1.5 font-body text-[14px] text-ink-soft transition-colors duration-200"
+                      style={{ willChange: "transform" }}
+                    >
+                      {item}
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
-      <style jsx global>{`
-        .glass-skill-card {
-          background: rgba(26, 26, 46, 0.55);
-          box-shadow: 0 8px 32px 0 rgba(0,191,255,0.10);
-          border: 1.5px solid rgba(255,255,255,0.10);
-          backdrop-filter: blur(12px);
-        }
-        .animate-spin-slow {
-          animation: spin 2.5s linear infinite;
-        }
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-      `}</style>
-    </motion.section>
+    </section>
   );
-};
+}

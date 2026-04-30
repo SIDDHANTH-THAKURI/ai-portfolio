@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Cream background -->
+  <rect width="32" height="32" rx="6" fill="#f6f1e8"/>
+  <!-- Paper plane body — ink, pointing upper-right -->
+  <polygon points="27,5 5,14 12,16 14,24" fill="#1a1d24"/>
+  <!-- Amber underwing / tail accent -->
+  <polygon points="12,16 5,14 10,19" fill="#d97706"/>
+  <!-- Amber trail dot -->
+  <circle cx="7" cy="25" r="1.5" fill="#d97706" opacity="0.55"/>
+  <circle cx="4" cy="27.5" r="1" fill="#d97706" opacity="0.30"/>
+</svg>

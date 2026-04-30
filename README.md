@@ -1,165 +1,121 @@
-# ✨ AI Portfolio — My Smart Digital Identity 💡
+# Siddhanth Thakuri — Portfolio
 
-Hey there! I'm **Siddhanth Thakuri**, and this is my personal portfolio — a modern, full-stack, AI-powered web app built with ❤️ using Next.js, Tailwind, Supabase, and OpenRouter. It showcases my work, skills, and personality — complete with an integrated AI assistant 🤖.
+Personal portfolio for **Siddhanth Thakuri**, Software Engineer based in Sydney.  
+A scroll-driven editorial experience that tells the story of an aeronautical engineer who became an AI product builder.
 
----
-
-## 🌐 Live Preview
-
-🔗 **[siddhanththakuri.com](https://siddhanththakuri.com/)**  
-(Explore the interactive chatbot, 3D visuals, and responsive design!)
+**Live:** [siddhanththakuri.com](https://siddhanththakuri.com)
 
 ---
 
-## 🌟 Features
+## Design concept
 
-- 🎨 Beautiful glassmorphic UI
-- 🤖 Built-in AI chatbot using OpenRouter (LLM API)
-- 🧠 Dynamic project, skills, and experience content
-- 📱 Fully responsive layout
-- 💾 Supabase-backed analytics, feedback, and storage
-- 🚀 Easy to deploy and customize
+The site is built around a single narrative arc — *sky to circuit* — told through:
+
+- A warm cream-and-ink editorial palette, light and filmic
+- Drifting cloud layers, sun glow, and a blueprint grid that bleeds in as you scroll
+- A canvas-rendered paper plane that follows the cursor, leaving a fading amber ink trail
+- A scroll-driven story section where four SVG technical illustrations cross-fade: biplane → code editor → software architecture → neural network
+- A perspective landing-strip runway in the contact section, completing the aviation metaphor
 
 ---
 
-## ⚙️ Getting Started
+## Stack
 
-### 1. Clone the Repository
+| Layer | Tech |
+|---|---|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| Animation | Framer Motion |
+| Fonts | Cormorant Garamond · Plus Jakarta Sans · JetBrains Mono |
+| Deploy | Vercel |
+
+---
+
+## Sections
+
+| Section | Description |
+|---|---|
+| **Hero** | Name, tagline, blueprint compass rose, flight-data strip |
+| **Origin** | Scroll-driven story: aero → code → SE → AI/ML with 4-phase illustrations |
+| **Projects** | 7 shipped projects with browser-frame preview thumbnails |
+| **Experience** | Timeline: Professional Year → MCS → Accenture → Aeronautical Engineering |
+| **About** | Personal manifesto + syntax-highlighted TypeScript self-portrait |
+| **Skills** | Interactive pill tags with category colour accents on hover |
+| **Contact** | Approach-light runway animation + project node constellation |
+
+---
+
+## Projects featured
+
+1. [DrugNexusAI](https://drugnexusai.app) — clinical AI platform (live)
+2. [ShiftMate](https://shiftmate-1.onrender.com) — AI workforce rostering SaaS (live)
+3. [WAYA](https://waya.onrender.com) — AI group scheduling with real-time chat (live)
+4. [HireReady](http://hirereadyai.app) — AI resume tailoring (live)
+5. [AlgoViz](https://algo-viz-pi.vercel.app) — algorithm visualiser (live)
+6. [Demon Slayer Focus](https://demon-slayer-focus.vercel.app) — Pomodoro timer (live)
+7. [Escape Velocity](https://team-aero.itch.io/escape-velocity) — door-choice game on itch.io (live)
+
+---
+
+## Running locally
 
 ```bash
-git clone https://github.com/SIDDHANTH-THAKURI/ai-portfolio.git
-cd ai-portfolio/frontend
-```
-### 2. Install Dependencies
-
+cd frontend
 npm install
-
-### 3. Configure Environment Variables
-Create a .env.local file inside the frontend/ folder:
-```bash
-# OpenRouter API Key (free tier available)
-OPENROUTER_API_KEY=your_openrouter_api_key
-
-# Supabase Project Settings
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-```
-💡 If deploying (e.g., to Vercel), add these in the environment settings panel directly.
-
-### 4. Run the App
-Start the local dev server:
-
-```bash
 npm run dev
 ```
 
-Build for production:
+Open [http://localhost:3000](http://localhost:3000).
 
-```bash
-npm run build
+### Environment variables
+
+Create `frontend/.env.local`:
+
+```
+# Required for the AI chat widget (SidAI)
+OPENROUTER_API_KEY=your_key_here
+
+# Required for analytics and feedback
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key_here
 ```
 
-#### 🧠 Customization
-Make it truly yours! ✨
+The static portfolio sections work without any env vars. Only the AI chat widget and analytics require them.
 
-📄 Replace the resume at public/resume.pdf
+---
 
-🖼️ Replace the profile image at public/images/profile.png
+## Project structure
 
-✏️ Update the content inside the data/ folder:
 ```
-projects.ts
-
-skills.ts
-
-experience.ts
-
-socials.ts
-```
-#### 📦 Complete Tech Stack
-This project uses the latest tools across the stack to create a rich, high-performance experience:
-
-#### 🎨 Frontend
-```
-Next.js – App Router, SSR/SSG
-
-React – Component-based UI
-
-TypeScript – Type safety
-
-Tailwind CSS – Utility-first styling
-
-Framer Motion – Animations
-
-@react-three/fiber – React renderer for Three.js
-
-Three.js – 3D rendering
-
-@react-three/drei – 3D helpers
-
-react-icons + FontAwesome – Icon libraries
-```
-#### 🤖 AI & Chatbot
-```
-OpenRouter – LLM API (mistralai/mistral-7b-instruct:free)
-
-Custom Prompt Engineering – Context, memory, and chat UX tuning
-```
-#### 🧠 Backend / API
-```
-Supabase – Auth, database, analytics, feedback, chat logs
-
-Next.js API Routes – Custom endpoints for chat, analytics, etc.
-```
-#### ⚙️ DevOps & Deployment
-```
-Vercel – Primary deployment & CI/CD
-
-GitHub – Version control & repo hosting
-```
-#### 🛠️ Developer Tools
-```
-VS Code – Editor of choice
-
-Cursor – AI-powered coding assistant
-
-ESLint & Prettier – Code quality and formatting
-
-PostCSS – CSS processing
-
-npm – Package management
-```
-#### 🎨 Design & Assets
-```
-Glassmorphism – Clean, modern design style
-
-Custom SVGs/PNGs – Planets, avatars, and visuals
-```
-#### 🚀 Deployment
-Deploy instantly using Vercel:
-```
-Just remember to add the same environment variables during setup.
+frontend/
+  src/
+    app/
+      page.tsx          # Section imports + order
+      layout.tsx        # Fonts, metadata, global background layers
+      globals.css       # CSS vars, body gradient, grain, keyframes
+    components/
+      Atmosphere.tsx    # Fixed canvas: dust particles + cursor plane trail
+      SkyScape.tsx      # Fixed layers: clouds, sun, horizon, blueprint grid
+      Nav.tsx
+      Hero.tsx
+      Origin.tsx        # Scroll-driven story — 4 cross-fading SVG illustrations
+      Projects.tsx      # 7 projects with 3D tilt + browser preview thumbnails
+      Experience.tsx    # Chronological timeline with linked UAV research paper
+      About.tsx         # Prose + TypeScript self-portrait card
+      Skills.tsx        # Interactive pill tags with category colour hover
+      Contact.tsx       # Runway approach lights + project node constellation
 ```
 
-#### 🙏 Acknowledgements
-Shoutout to the tools and people that made this possible:
-```
-OpenRouter.ai
+---
 
-Supabase
+## Contact
 
-Next.js
+**Email:** thakurisiddhanth1@gmail.com  
+**GitHub:** [github.com/SIDDHANTH-THAKURI](https://github.com/SIDDHANTH-THAKURI)  
+**LinkedIn:** [linkedin.com/in/siddhanththakuri](https://linkedin.com/in/siddhanththakuri)  
+**Location:** Sydney, NSW · Open to remote · 485 Visa · Full work rights
 
-Vercel
+---
 
-And the open-source community 💜
-```
-#### ⭐ Like What You See?
-If you found this project helpful or inspiring, please consider leaving a ⭐ — it helps more than you think!
-
-```bash
-git commit -m "⭐ Loved the AI Portfolio!"
-```
-
-# Made with ☕, creativity, and a lot of code.
-### — Siddhanth Thakuri
+*Built with Next.js and assisted by Claude Code.*

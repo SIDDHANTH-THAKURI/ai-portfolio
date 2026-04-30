@@ -38,4 +38,10 @@ coverage/
 
 # Ignore test scripts and local test files
 src/test-*.js
-frontend/src/test-*.js 
+frontend/src/test-*.js
+
+# Claude Code — project intelligence files (not for public repo)
+CLAUDE.md
+CONTENT.md
+frontend-design.md
+.claude/

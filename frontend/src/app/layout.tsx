@@ -1,57 +1,62 @@
-"use client";
-
 import type { Metadata } from "next";
-import { Inter, Poppins } from 'next/font/google';
+import {
+  Cormorant_Garamond,
+  Plus_Jakarta_Sans,
+  JetBrains_Mono,
+} from "next/font/google";
 import "./globals.css";
+import { SkyScape } from "@/components/SkyScape";
+import { Atmosphere } from "@/components/Atmosphere";
 
-import '@fortawesome/fontawesome-svg-core/styles.css';
-import { config } from '@fortawesome/fontawesome-svg-core';
-
-config.autoAddCss = false;
-
-import SidAIWidget from "@/components/SidAIWidget";
-import { useState, useEffect } from "react";
-import { getSessionId } from "@/utils/session";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ['600', '700'],
-  variable: '--font-poppins',
+const display = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
+  display: "swap",
 });
+
+const body = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  title: "Siddhanth Thakuri — Software Engineer",
+  description:
+    "I build things from problems I've actually lived. Enterprise .NET at Accenture · Now shipping AI products from Sydney.",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [showSidAI, setShowSidAI] = useState(false);
-  useEffect(() => {
-    const timer = setTimeout(() => setShowSidAI(true), 1200); 
-    return () => clearTimeout(timer);
-  }, []);
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      fetch('/api/analytics', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          path: window.location.pathname,
-          referrer: document.referrer,
-          user_agent: navigator.userAgent,
-          country: '',
-          session_id: getSessionId(),
-        }),
-      });
-    }
-  }, []);
   return (
-    <html lang="en" suppressHydrationWarning={true}>
-      <body className={`${inter.variable} ${poppins.variable} font-inter`}>
+    <html
+      lang="en"
+      className={`${display.variable} ${body.variable} ${mono.variable}`}
+    >
+      <body>
+        {/* Fixed background layers — lowest z. */}
+        <SkyScape />
+        {/* Particle + plane canvas — sits above backdrops, below content. */}
+        <Atmosphere />
         {children}
-        {showSidAI && <SidAIWidget />}
-        <SpeedInsights />
       </body>
     </html>
   );
