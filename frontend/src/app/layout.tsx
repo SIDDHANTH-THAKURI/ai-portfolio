@@ -7,6 +7,7 @@ import {
 import "./globals.css";
 import { SkyScape } from "@/components/SkyScape";
 import { Atmosphere } from "@/components/Atmosphere";
+import { MusicPlayer } from "@/components/MusicPlayer";
 
 const display = Cormorant_Garamond({
   subsets: ["latin"],
@@ -57,6 +58,8 @@ export default function RootLayout({
         {/* Particle + plane canvas — sits above backdrops, below content. */}
         <Atmosphere />
         {children}
+        {/* Ambient music player — fixed bottom-right, opt-in. */}
+        <MusicPlayer />
       </body>
     </html>
   );
