@@ -8,6 +8,7 @@ import "./globals.css";
 import { SkyScape } from "@/components/SkyScape";
 import { Atmosphere } from "@/components/Atmosphere";
 import { MusicPlayer } from "@/components/MusicPlayer";
+import { Analytics } from "@vercel/analytics/next";
 
 const display = Cormorant_Garamond({
   subsets: ["latin"],
@@ -60,6 +61,7 @@ export default function RootLayout({
         {children}
         {/* Ambient music player — fixed bottom-right, opt-in. */}
         <MusicPlayer />
+        <Analytics />
       </body>
     </html>
   );
