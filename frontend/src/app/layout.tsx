@@ -8,7 +8,7 @@ import "./globals.css";
 import { SkyScape } from "@/components/SkyScape";
 import { Atmosphere } from "@/components/Atmosphere";
 import { MusicPlayer } from "@/components/MusicPlayer";
-import { Analytics } from "@vercel/analytics/next";
+import { Analytics } from "@vercel/analytics/react";
 
 const display = Cormorant_Garamond({
   subsets: ["latin"],
