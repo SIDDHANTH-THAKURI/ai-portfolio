@@ -19,6 +19,20 @@ type Project = {
 const projects: Project[] = [
   {
     num: "01",
+    title: "Job Hunter",
+    tags: ["Personal Project", "AI Tool", "Automation", "Full-Stack", "Open Source"],
+    oneLine: "AI-powered job hunting system that crawls Seek, LinkedIn, and Indeed, scores every listing, and generates a tailored resume and cover letter — all from a local dashboard.",
+    description:
+      "Job Hunter automates the most tedious parts of job searching: it crawls live listings across three major platforms using your target roles and locations, then uses Claude AI to score each job 1–10 against your actual profile. For any role you want to pursue, it generates a fully tailored, ATS-safe resume and cover letter in Word and PDF format — without overclaiming your skills. Built and used during my own active job search.",
+    stack: ["Python", "Flask", "SQLite", "Claude AI (Sonnet + Haiku)", "Apify", "Playwright", "python-docx", "HTML/CSS/JS"],
+    link: { label: "GitHub", href: "https://github.com/SIDDHANTH-THAKURI/Job-Hunter" },
+    preview: {
+      gradient: "linear-gradient(135deg, #fdf4f3 0%, #f5c5c0 55%, #c44536 100%)",
+      domain: "github.com",
+    },
+  },
+  {
+    num: "02",
     title: "DrugNexusAI",
     tags: ["Live", "Clinical AI"],
     oneLine: "A production clinical AI platform for drug interaction analysis.",
@@ -32,7 +46,7 @@ const projects: Project[] = [
     },
   },
   {
-    num: "02",
+    num: "03",
     title: "ShiftMate",
     tags: ["Live", "SaaS", "AI Workforce"],
     oneLine: "AI rostering built from watching scheduling collapse in real time.",
@@ -46,7 +60,7 @@ const projects: Project[] = [
     },
   },
   {
-    num: "03",
+    num: "04",
     title: "WAYA",
     tags: ["Live", "Full-Stack", "AI Scheduling"],
     oneLine: "AI-powered group scheduling with real-time chat, polls, and a mobile app.",
@@ -60,7 +74,7 @@ const projects: Project[] = [
     },
   },
   {
-    num: "04",
+    num: "05",
     title: "HireReady",
     tags: ["Live", "AI Tool"],
     oneLine: "Resume tailoring from my own stack of rejection emails.",
@@ -74,7 +88,7 @@ const projects: Project[] = [
     },
   },
   {
-    num: "05",
+    num: "06",
     title: "AlgoViz",
     tags: ["Live", "Education"],
     oneLine: "Algorithm visualiser that makes sorting make sense.",
@@ -88,7 +102,7 @@ const projects: Project[] = [
     },
   },
   {
-    num: "06",
+    num: "07",
     title: "Demon Slayer Focus",
     tags: ["Live", "Productivity"],
     oneLine: "A Pomodoro timer inside the world of Demon Slayer.",
@@ -102,7 +116,7 @@ const projects: Project[] = [
     },
   },
   {
-    num: "07",
+    num: "08",
     title: "Escape Velocity",
     tags: ["Live", "Game"],
     oneLine: "A door-choice game inspired by Takeshi's Castle.",

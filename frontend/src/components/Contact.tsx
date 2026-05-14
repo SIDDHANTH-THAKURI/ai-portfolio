@@ -234,7 +234,7 @@ export function Contact() {
           className="flex flex-col gap-3 border-t border-ink/12 pt-10 md:flex-row md:items-center md:justify-between"
         >
           <p className="font-body text-[13px] text-ink-soft">
-            Sydney, NSW · Open to remote · 485 Visa · Full work rights
+            Australia
           </p>
           <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-ink-soft/55">
             © {new Date().getFullYear()} Siddhanth Thakuri
@@ -247,16 +247,17 @@ export function Contact() {
 
 // Project-names constellation — nodes connected by faint edges.
 const nodes = [
-  { label: "DrugNexusAI", x: 120, y: 40 },
-  { label: "ShiftMate",   x: 310, y: 20 },
-  { label: "WAYA",        x: 520, y: 50 },
-  { label: "HireReady",   x: 680, y: 30 },
-  { label: "AlgoViz",     x: 200, y: 95 },
-  { label: "Demon Slayer",x: 430, y: 100 },
-  { label: "Escape Vel.", x: 630, y: 90 },
+  { label: "Job Hunter",  x: 30,  y: 55 },
+  { label: "DrugNexusAI", x: 150, y: 30 },
+  { label: "ShiftMate",   x: 310, y: 15 },
+  { label: "WAYA",        x: 490, y: 45 },
+  { label: "HireReady",   x: 680, y: 25 },
+  { label: "AlgoViz",     x: 210, y: 100 },
+  { label: "Demon Slayer",x: 420, y: 105 },
+  { label: "Escape Vel.", x: 630, y: 95 },
 ];
 const edges = [
-  [0, 1], [1, 2], [2, 3], [0, 4], [4, 5], [5, 6], [1, 4], [2, 5], [3, 6],
+  [0, 1], [0, 5], [1, 2], [2, 3], [3, 4], [1, 5], [5, 6], [6, 7], [2, 5], [3, 6], [4, 7],
 ];
 
 function Constellation() {

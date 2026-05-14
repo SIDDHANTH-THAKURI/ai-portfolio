@@ -51,12 +51,22 @@ export function Nav() {
           ))}
         </nav>
 
-        <a
-          href="#contact"
-          className="group relative overflow-hidden border border-ink/25 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.18em] text-ink transition-colors duration-300 hover:border-amber hover:text-amber"
-        >
-          Say hello →
-        </a>
+        <div className="flex items-center gap-3">
+          <a
+            href="/siddhanth_resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border border-ink/25 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.18em] text-ink transition-colors duration-300 hover:border-amber hover:text-amber"
+          >
+            ↓ Resume
+          </a>
+          <a
+            href="#contact"
+            className="group relative overflow-hidden border border-ink/25 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.18em] text-ink transition-colors duration-300 hover:border-amber hover:text-amber"
+          >
+            Say hello →
+          </a>
+        </div>
       </div>
     </motion.header>
   );
