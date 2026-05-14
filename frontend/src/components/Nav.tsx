@@ -52,6 +52,13 @@ export function Nav() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <div className="hidden items-center gap-2 rounded-full border border-amber/35 bg-amber/5 px-3 py-1.5 md:flex">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inset-0 animate-ping rounded-full bg-amber/60" />
+              <span className="relative h-1.5 w-1.5 rounded-full bg-amber" />
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-amber/80">open to roles</span>
+          </div>
           <a
             href="/Siddhanth_Resume.pdf"
             target="_blank"
