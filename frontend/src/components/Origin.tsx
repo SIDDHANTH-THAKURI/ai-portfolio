@@ -31,7 +31,7 @@ const beats = [
     chapter: "03 · Software Engineering",
     year: "2021 – 2023",
     line: "Joined Accenture as a Software Engineer — one level above graduate entry.",
-    note: "C#, ASP.NET Core, Azure · 120+ reviews · Unsung Hero Award 2022.",
+    note: "C#, ASP.NET Core, Azure · Unsung Hero Award 2022 · 120+ code reviews.",
   },
   {
     chapter: "04 · AI & Machine Learning",

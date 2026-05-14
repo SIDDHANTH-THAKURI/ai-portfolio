@@ -17,7 +17,7 @@ const entries: Entry[] = [
   {
     year: "Jan 2026 – Present",
     title: "Professional Year — ICT",
-    subtitle: "QIBA · Professional Development Program",
+    subtitle: "QIBA · Sydney, NSW, Australia",
     bullets: [
       "Information and Communication Technology stream",
       "Industry placement + professional skills development",
@@ -26,7 +26,7 @@ const entries: Entry[] = [
   {
     year: "2023 – 2025",
     title: "Master of Computer Science",
-    subtitle: "University of Wollongong · ML + Big Data",
+    subtitle: "University of Wollongong · Wollongong, NSW, Australia · ML + Big Data",
     bullets: [
       "Distinction · WAM 77.9",
       "Academic Excellence Scholarship — UOW",
@@ -36,11 +36,11 @@ const entries: Entry[] = [
   {
     year: "2021 – 2023",
     title: "Software Engineer · Accenture",
-    subtitle: "Hyderabad · C#, ASP.NET Core, React, SQL Server, Azure",
+    subtitle: "India · C#, ASP.NET Core, React, SQL Server, Azure",
     bullets: [
       { text: "Unsung Hero Award 2022", highlight: true },
       "120+ code reviews · 18% defect reduction",
-      "Recognised at Senior Analyst level on joining — above standard graduate entry",
+      "Delivered enterprise .NET and React solutions across client engagements on Azure",
     ],
   },
   {
