@@ -48,7 +48,7 @@ export function Hero() {
           <span className="text-amber/80">·</span>
           <span>Software Engineer</span>
           <span className="text-amber/80">·</span>
-          <span>Sydney</span>
+          <span>Australia</span>
         </motion.div>
 
         {/* Name — italic Cormorant on cream, with a sun-warm gradient on the surname. */}
@@ -105,7 +105,7 @@ export function Hero() {
           className="mt-3 max-w-xl font-body text-[15px] text-ink-soft"
         >
           Aeronautical engineer turned software engineer · Enterprise .NET at
-          Accenture · Now shipping AI products from Sydney.
+          Accenture · Now shipping AI products from Australia.
         </motion.p>
 
         {/* CTAs */}

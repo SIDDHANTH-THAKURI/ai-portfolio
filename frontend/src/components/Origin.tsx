@@ -226,9 +226,9 @@ export function Origin() {
 
 // ── Illustrations ────────────────────────────────────────────────────────────
 
-type IllusProps = { opacity: MotionValue<number> };
+export type IllusProps = { opacity: MotionValue<number> };
 
-function IllustrationBiplane({ opacity }: IllusProps) {
+export function IllustrationBiplane({ opacity }: IllusProps) {
   return (
     <motion.svg
       style={{ opacity, position: "absolute", inset: 0, margin: "auto" }}
@@ -460,7 +460,7 @@ function IllustrationBiplane({ opacity }: IllusProps) {
   );
 }
 
-function IllustrationCode({ opacity }: IllusProps) {
+export function IllustrationCode({ opacity }: IllusProps) {
   const visible = useVisible(opacity);
   return (
     <motion.svg
@@ -501,7 +501,7 @@ function IllustrationCode({ opacity }: IllusProps) {
   );
 }
 
-function IllustrationArchitecture({ opacity }: IllusProps) {
+export function IllustrationArchitecture({ opacity }: IllusProps) {
   const visible = useVisible(opacity);
   return (
     <motion.svg
@@ -558,7 +558,7 @@ function IllustrationArchitecture({ opacity }: IllusProps) {
   );
 }
 
-function IllustrationNeuralNet({ opacity }: IllusProps) {
+export function IllustrationNeuralNet({ opacity }: IllusProps) {
   const visible = useVisible(opacity);
   // Positions — nodes shifted down so headers at y=12 don't clip top nodes
   const inX = 52, h1X = 144, h2X = 248, outX = 340;

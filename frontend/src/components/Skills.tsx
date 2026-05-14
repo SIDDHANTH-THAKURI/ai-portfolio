@@ -24,19 +24,19 @@ const groups: Group[] = [
   {
     label: "Frameworks",
     accent: "#2c4a6b",   // blueprint
-    items: ["ASP.NET Core", "React", "Next.js", "Node.js", "FastAPI"],
+    items: ["ASP.NET Core", "Entity Framework Core", "React", "Next.js", "Node.js", "FastAPI"],
   },
   {
     label: "AI / ML",
     accent: "#2d8a7f",   // teal
     items: [
       "Anthropic API",
+      "Claude Code",
       "OpenRouter",
+      "LLMs",
       "BERT",
       "ChemBERTa",
       "Transformers",
-      "Mistral",
-      "GPT-4",
       "scikit-learn",
     ],
   },
@@ -52,14 +52,13 @@ const groups: Group[] = [
       "AWS",
       "Vercel",
       "Render",
-      "Twilio",
       "Stripe",
     ],
   },
   {
     label: "Tools",
     accent: "#5b5f6b",   // ink-soft
-    items: ["Git", "Jira", "Postman", "Figma"],
+    items: ["Git", "GitHub Actions", "xUnit / NUnit", "Jira", "Postman", "Figma"],
   },
 ];
 
