@@ -73,7 +73,7 @@ function EntryScreen({ onEnter }: { onEnter: (withSound: boolean) => void }) {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.15, duration: 0.7 }}
       >
-        aeronautical · software · ai
+        software · ai
       </motion.p>
 
       {/* Divider */}

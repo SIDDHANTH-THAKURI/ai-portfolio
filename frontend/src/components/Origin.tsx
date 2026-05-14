@@ -62,13 +62,13 @@ export function Origin() {
   // Section header occupies ~10% of the tracked scroll range.
   const op0 = useTransform(smooth, [0.09, 0.17, 0.30, 0.38], [0, 1, 1, 0]);
   const op1 = useTransform(smooth, [0.30, 0.38, 0.52, 0.60], [0, 1, 1, 0]);
-  const op2 = useTransform(smooth, [0.52, 0.60, 0.74, 0.82], [0, 1, 1, 0]);
-  const op3 = useTransform(smooth, [0.74, 0.82, 1.00, 1.00], [0, 1, 1, 1]);
+  const op2 = useTransform(smooth, [0.52, 0.60, 0.68, 0.76], [0, 1, 1, 0]);
+  const op3 = useTransform(smooth, [0.66, 0.75, 1.00, 1.00], [0, 1, 1, 1]);
 
   // Chapter index label in the card (1-4), driven by scroll.
   const chapterNum = useTransform(
     smooth,
-    [0, 0.34, 0.56, 0.78, 1],
+    [0, 0.34, 0.56, 0.73, 1],
     [1, 2, 3, 4, 4]
   );
 
