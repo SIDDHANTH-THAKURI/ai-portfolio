@@ -30,14 +30,14 @@ const beats = [
   {
     chapter: "03 · Software Engineering",
     year: "2021 – 2023",
-    line: "Joined Accenture as a Software Engineer — one level above graduate entry.",
+    line: "Joined Accenture — shipping enterprise software on Azure for global clients.",
     note: "C#, ASP.NET Core, Azure · Unsung Hero Award 2022 · 120+ code reviews.",
   },
   {
     chapter: "04 · AI & Machine Learning",
     year: "2023 – Now",
-    line: "Moved to Australia to specialise in ML. Started shipping AI products.",
-    note: "UoW Master of CS · Distinction · DrugNexusAI, ShiftMate, WAYA — real problems, real users.",
+    line: "Moved to Australia to do a Master's in Computer Science — and went deep on ML.",
+    note: "University of Wollongong · Distinction · Specialised in machine learning and AI systems.",
   },
 ];
 
