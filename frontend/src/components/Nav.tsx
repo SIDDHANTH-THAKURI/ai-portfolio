@@ -60,7 +60,7 @@ export function Nav() {
             <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-amber/80">open to roles</span>
           </div>
           <a
-            href="/Siddhanth_Resume.pdf"
+            href="/Siddhanth_Thakuri.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="border border-ink/25 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.18em] text-ink transition-colors duration-300 hover:border-amber hover:text-amber"
