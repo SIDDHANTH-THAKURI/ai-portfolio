@@ -100,9 +100,8 @@ export function MobileNav() {
                 </motion.a>
               ))}
               <motion.a
-                href="/Siddhanth_Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/Siddhanth_Thakuri.pdf"
+                download="Siddhanth_Thakuri.pdf"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.22, delay: links.length * 0.045 }}

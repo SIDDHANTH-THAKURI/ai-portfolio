@@ -61,8 +61,7 @@ export function Nav() {
           </div>
           <a
             href="/Siddhanth_Thakuri.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
+            download="Siddhanth_Thakuri.pdf"
             className="border border-ink/25 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.18em] text-ink transition-colors duration-300 hover:border-amber hover:text-amber"
           >
             ↓ Resume
